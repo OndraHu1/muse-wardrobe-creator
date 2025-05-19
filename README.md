@@ -1,73 +1,119 @@
-# Welcome to your Lovable project
+# Muzejní Šatník
 
-## Project info
+Interaktivní webová aplikace pro vytváření a oblékání postav. Umožňuje uživatelům oblékat 
+mužské a ženské postavy různými druhy oblečení a vytvářet vlastní návrhy oděvů.
 
-**URL**: https://lovable.dev/projects/e36ae92c-7091-484c-8df7-a6d5999a41bf
+## Funkce
 
-## How can I edit this code?
+- Výběr mezi mužskou a ženskou postavou
+- Přetahování oblečení na postavu
+- Možnost měnit velikost a pozici oblečení
+- Vlastní návrhář oblečení s různými kreslícími nástroji
+- Přepínání mezi světlým a tmavým motivem
 
-There are several ways of editing your application.
+## Technologie
 
-**Use Lovable**
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- Shadcn/UI komponenty
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/e36ae92c-7091-484c-8df7-a6d5999a41bf) and start prompting.
+## Jak spustit aplikaci lokálně
 
-Changes made via Lovable will be committed automatically to this repo.
+### Předpoklady
 
-**Use your preferred IDE**
+- Node.js (verze 16 nebo novější)
+- npm nebo yarn nebo pnpm nebo bun
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Instalace
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. Naklonujte repozitář:
+   ```bash
+   git clone <url-repozitáře>
+   ```
 
-Follow these steps:
+2. Přejděte do složky projektu:
+   ```bash
+   cd muse-wardrobe-creator
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+3. Nainstalujte závislosti:
+   ```bash
+   npm install
+   # nebo
+   yarn install
+   # nebo
+   pnpm install
+   # nebo
+   bun install
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+4. **Důležité: Zkopírujte obrázky**
+   Zkopírujte složky s obrázky (`Muz`, `Zena`, `Chlapec`, `Devce`) do složky `public` v projektu:
+   ```bash
+   cp -r ../Muz ../Zena ../Chlapec ../Devce public/
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+5. Spuštění vývojového serveru:
+   ```bash
+   npm run dev
+   # nebo
+   yarn dev
+   # nebo
+   pnpm dev
+   # nebo
+   bun dev
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+6. Otevřete prohlížeč a přejděte na adresu `http://localhost:5173`
+
+## Nasazení na web
+
+### Sestavení pro produkci
+
+Pro sestavení optimalizovaných produkčních souborů spusťte:
+
+```bash
+npm run build
+# nebo
+yarn build
+# nebo
+pnpm build
+# nebo
+bun build
 ```
 
-**Edit a file directly in GitHub**
+Výsledné soubory budou ve složce `dist`.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Nasazení na hosting
 
-**Use GitHub Codespaces**
+Výsledné soubory ze složky `dist` můžete nahrát na jakýkoliv statický hosting:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+1. **GitHub Pages**:
+   - Nahrajte obsah složky `dist` do větve `gh-pages` vašeho GitHub repozitáře
+   - Nastavte GitHub Pages v nastavení repozitáře
 
-## What technologies are used for this project?
+2. **Netlify**:
+   - Vytvořte účet na Netlify
+   - Přetáhněte složku `dist` do sekce upload na dashboardu Netlify
+   - Případně propojte s vaším GitHub repozitářem pro automatické nasazování
 
-This project is built with:
+3. **Vercel**:
+   - Vytvořte účet na Vercel
+   - Importujte váš projekt z GitHub
+   - Nastavte build command na `npm run build` a output directory na `dist`
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Struktura obrázků
 
-## How can I deploy this project?
+Aplikace používá obrázky ze složek:
+- `/Muz/` - Obrázky mužské postavy a oblečení
+- `/Zena/` - Obrázky ženské postavy a oblečení
+- `/Chlapec/` - Obrázky chlapecké postavy a oblečení
+- `/Devce/` - Obrázky dívčí postavy a oblečení
 
-Simply open [Lovable](https://lovable.dev/projects/e36ae92c-7091-484c-8df7-a6d5999a41bf) and click on Share -> Publish.
+Pro přidání dalšího oblečení stačí přidat nové obrázky do příslušné složky a upravit soubor `ClothingMenu.tsx`.
 
-## Can I connect a custom domain to my Lovable project?
+## Licence
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+© 2024 Muzejní Šatník. Všechna práva vyhrazena.

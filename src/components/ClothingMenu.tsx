@@ -6,10 +6,11 @@ import { Shirt, User, GraduationCap, Footprints } from "lucide-react";
 
 interface ClothingMenuProps {
   customItems: ClothingItemProps[];
-  gender: 'male' | 'female';
+  gender: 'male' | 'female' | 'boy' | 'girl';
+  onItemClick?: (item: Omit<ClothingItemProps, 'onItemClick'>) => void;
 }
 
-const ClothingMenu = ({ customItems, gender }: ClothingMenuProps) => {
+const ClothingMenu = ({ customItems, gender, onItemClick }: ClothingMenuProps) => {
   // Static clothing items categorized by type
   const [clothingItems, setClothingItems] = useState<{
     tops: ClothingItemProps[];
@@ -24,18 +25,19 @@ const ClothingMenu = ({ customItems, gender }: ClothingMenuProps) => {
   });
 
   useEffect(() => {
-    // Using uploaded transparent images
+    // Použití lokálních obrázků ze složek
     const maleItems = {
       tops: [
-        { id: "m-shirt-1", type: "top", name: "Tričko", src: "/lovable-uploads/17728081-f9c3-4adb-8298-35c87414bcce.png", width: 30, height: 30 },
-        { id: "m-shirt-2", type: "top", name: "Košile", src: "/lovable-uploads/5b1c5cbe-c853-4005-a514-343cf3526818.png", width: 30, height: 30 },
-        { id: "m-shirt-3", type: "top", name: "Tričko s dinosaurem", src: "/lovable-uploads/99f06446-8f08-4628-8443-67167c58820c.png", width: 30, height: 30 },
-        { id: "m-shirt-4", type: "top", name: "Tričko se sluníčkem", src: "/lovable-uploads/60c8e7fc-683a-4e48-8fd1-369aef5e65ff.png", width: 30, height: 30 },
+        { id: "m-shirt-1", type: "top", name: "Tričko 1", src: "/Muz/muz_obleceni_1.png", width: 30, height: 30 },
+        { id: "m-shirt-2", type: "top", name: "Tričko 2", src: "/Muz/muz_obleceni_2.png", width: 30, height: 30 },
+        { id: "m-shirt-3", type: "top", name: "Tričko 3", src: "/Muz/muz_obleceni_3.png", width: 30, height: 30 },
+        { id: "m-shirt-4", type: "top", name: "Tričko 4", src: "/Muz/muz_obleceni_4.png", width: 30, height: 30 },
+        { id: "m-shirt-5", type: "top", name: "Tričko 5", src: "/Muz/muz_obleceni_5.png", width: 30, height: 30 },
       ],
       bottoms: [
-        { id: "m-pants-1", type: "bottom", name: "Šortky", src: "/lovable-uploads/b2c45122-b8cc-4016-9c72-3ff23a682a5b.png", width: 30, height: 40 },
-        { id: "m-pants-2", type: "bottom", name: "Kraťasy", src: "/lovable-uploads/2b9c2f01-75df-443d-aabe-37de4e6cbf23.png", width: 30, height: 40 },
-        { id: "m-overall", type: "bottom", name: "Lacláče", src: "/lovable-uploads/194774e2-ff83-463b-8d96-46f1562d3f38.png", width: 40, height: 60 },
+        { id: "m-pants-1", type: "bottom", name: "Kalhoty 1", src: "/Muz/muz_obleceni_6.png", width: 30, height: 40 },
+        { id: "m-pants-2", type: "bottom", name: "Kalhoty 2", src: "/Muz/muz_obleceni_7.png", width: 30, height: 40 },
+        { id: "m-pants-3", type: "bottom", name: "Kalhoty 3", src: "/Muz/muz_obleceni_9.png", width: 30, height: 40 },
       ],
       hats: [
         { id: "m-hat-1", type: "hat", name: "Klobouk", src: "https://www.svgrepo.com/show/378172/hat-clothing-fashion.svg", width: 25, height: 20 },
@@ -49,17 +51,17 @@ const ClothingMenu = ({ customItems, gender }: ClothingMenuProps) => {
 
     const femaleItems = {
       tops: [
-        { id: "f-shirt-1", type: "top", name: "Halenka", src: "/lovable-uploads/7b37099e-1f02-4319-98c5-3d0fa574550a.png", width: 30, height: 30 },
-        { id: "f-shirt-2", type: "top", name: "Tričko", src: "/lovable-uploads/8f3cff71-e297-4007-b8ef-9b918022ecae.png", width: 30, height: 30 },
-        { id: "f-shirt-3", type: "top", name: "Pruhované tričko", src: "/lovable-uploads/cab543f6-9faa-4e81-afbd-bd3f37c39a3e.png", width: 30, height: 30 },
+        { id: "f-shirt-1", type: "top", name: "Tričko 1", src: "/Zena/zena_obleceni_1.png", width: 30, height: 30 },
+        { id: "f-shirt-2", type: "top", name: "Tričko 2", src: "/Zena/zena_obleceni_2.png", width: 30, height: 30 },
+        { id: "f-shirt-3", type: "top", name: "Tričko 3", src: "/Zena/zena_obleceni_3.png", width: 30, height: 30 },
       ],
       bottoms: [
-        { id: "f-skirt-1", type: "bottom", name: "Sukně", src: "/lovable-uploads/113c634e-b401-4163-864c-d9cb7952e649.png", width: 30, height: 30 },
-        { id: "f-dress-1", type: "bottom", name: "Šaty", src: "/lovable-uploads/04664fdf-ba23-44fc-9ee7-4cda3c7db630.png", width: 35, height: 50 },
-        { id: "f-dress-2", type: "bottom", name: "Růžové šaty", src: "/lovable-uploads/e1605196-938c-4774-824a-67607f4673da.png", width: 35, height: 50 },
-        { id: "f-dress-3", type: "bottom", name: "Šaty se srdíčky", src: "/lovable-uploads/863b0e64-bdb8-4421-9e77-a50b4b35f4ee.png", width: 35, height: 50 },
-        { id: "f-overall", type: "bottom", name: "Lacláče", src: "/lovable-uploads/c107da29-8709-46ee-a108-be1d24621059.png", width: 35, height: 50 },
-        { id: "f-outfit-1", type: "bottom", name: "Modrý outfit", src: "/lovable-uploads/29e08e69-a859-4170-b28d-702652c392f7.png", width: 35, height: 45 },
+        { id: "f-bottom-1", type: "bottom", name: "Kalhoty 1", src: "/Zena/zena_obleceni_4.png", width: 30, height: 40 },
+        { id: "f-bottom-2", type: "bottom", name: "Kalhoty 2", src: "/Zena/zena_obleceni_5.png", width: 30, height: 40 },
+        { id: "f-bottom-3", type: "bottom", name: "Sukně", src: "/Zena/zena_obleceni_6.png", width: 30, height: 35 },
+        { id: "f-bottom-4", type: "bottom", name: "Šaty", src: "/Zena/zena_obleceni_7.png", width: 35, height: 50 },
+        { id: "f-bottom-5", type: "bottom", name: "Šaty s puntíky", src: "/Zena/zena_obleceni_8.png", width: 35, height: 50 },
+        { id: "f-bottom-6", type: "bottom", name: "Dlouhé šaty", src: "/Zena/zena_obleceni_9.png", width: 35, height: 50 },
       ],
       hats: [
         { id: "f-hat-1", type: "hat", name: "Klobouk", src: "https://www.svgrepo.com/show/378174/hat-women-summer.svg", width: 25, height: 20 },
@@ -71,7 +73,58 @@ const ClothingMenu = ({ customItems, gender }: ClothingMenuProps) => {
       ]
     };
 
-    setClothingItems(gender === 'male' ? maleItems : femaleItems);
+    // Přidání oblečení pro chlapce a dívky
+    const boyItems = {
+      tops: [
+        { id: "b-shirt-1", type: "top", name: "Tričko 1", src: "/Chlapec/chlapec_obleceni_1.png", width: 30, height: 30 },
+        { id: "b-shirt-2", type: "top", name: "Tričko 2", src: "/Chlapec/chlapec_obleceni_2.png", width: 30, height: 30 },
+      ],
+      bottoms: [
+        { id: "b-pants-1", type: "bottom", name: "Kalhoty 1", src: "/Chlapec/chlapec_obleceni_3.png", width: 30, height: 40 },
+        { id: "b-pants-2", type: "bottom", name: "Kalhoty 2", src: "/Chlapec/chlapec_obleceni_4.png", width: 30, height: 40 },
+      ],
+      hats: [
+        { id: "b-hat-1", type: "hat", name: "Klobouk", src: "https://www.svgrepo.com/show/378172/hat-clothing-fashion.svg", width: 25, height: 20 },
+      ],
+      footwear: [
+        { id: "b-shoes-1", type: "footwear", name: "Boty", src: "https://www.svgrepo.com/show/378193/shoes-sneakers-clothing.svg", width: 25, height: 15 },
+      ]
+    };
+
+    const girlItems = {
+      tops: [
+        { id: "g-shirt-1", type: "top", name: "Tričko 1", src: "/Devce/devce_obleceni_1.png", width: 30, height: 30 },
+        { id: "g-shirt-2", type: "top", name: "Tričko 2", src: "/Devce/devce_obleceni_2.png", width: 30, height: 30 },
+      ],
+      bottoms: [
+        { id: "g-bottom-1", type: "bottom", name: "Sukýnka", src: "/Devce/devce_obleceni_3.png", width: 30, height: 35 },
+        { id: "g-bottom-2", type: "bottom", name: "Šaty", src: "/Devce/devce_obleceni_4.png", width: 35, height: 50 },
+      ],
+      hats: [
+        { id: "g-hat-1", type: "hat", name: "Klobouk", src: "https://www.svgrepo.com/show/378174/hat-women-summer.svg", width: 25, height: 20 },
+      ],
+      footwear: [
+        { id: "g-shoes-1", type: "footwear", name: "Boty", src: "https://www.svgrepo.com/show/378192/shoes-high-heel.svg", width: 25, height: 15 },
+      ]
+    };
+
+    // Výběr položek podle zvolené postavy
+    switch(gender) {
+      case 'male':
+        setClothingItems(maleItems);
+        break;
+      case 'female':
+        setClothingItems(femaleItems);
+        break;
+      case 'boy':
+        setClothingItems(boyItems);
+        break;
+      case 'girl':
+        setClothingItems(girlItems);
+        break;
+      default:
+        setClothingItems(maleItems);
+    }
   }, [gender]);
 
   return (
@@ -103,32 +156,32 @@ const ClothingMenu = ({ customItems, gender }: ClothingMenuProps) => {
         <div className="p-4 max-h-[300px] overflow-y-auto">
           <TabsContent value="tops" className="grid grid-cols-3 gap-2 mt-0">
             {clothingItems.tops.map((item) => (
-              <ClothingItem key={item.id} {...item} />
+              <ClothingItem key={item.id} {...item} onItemClick={onItemClick} />
             ))}
           </TabsContent>
           
           <TabsContent value="bottoms" className="grid grid-cols-3 gap-2 mt-0">
             {clothingItems.bottoms.map((item) => (
-              <ClothingItem key={item.id} {...item} />
+              <ClothingItem key={item.id} {...item} onItemClick={onItemClick} />
             ))}
           </TabsContent>
           
           <TabsContent value="hats" className="grid grid-cols-3 gap-2 mt-0">
             {clothingItems.hats.map((item) => (
-              <ClothingItem key={item.id} {...item} />
+              <ClothingItem key={item.id} {...item} onItemClick={onItemClick} />
             ))}
           </TabsContent>
           
           <TabsContent value="footwear" className="grid grid-cols-3 gap-2 mt-0">
             {clothingItems.footwear.map((item) => (
-              <ClothingItem key={item.id} {...item} />
+              <ClothingItem key={item.id} {...item} onItemClick={onItemClick} />
             ))}
           </TabsContent>
           
           <TabsContent value="custom" className="grid grid-cols-3 gap-2 mt-0">
             {customItems.length > 0 ? (
               customItems.map((item) => (
-                <ClothingItem key={item.id} {...item} isCustom />
+                <ClothingItem key={item.id} {...item} isCustom onItemClick={onItemClick} />
               ))
             ) : (
               <p className="col-span-3 text-center text-muted-foreground py-4">

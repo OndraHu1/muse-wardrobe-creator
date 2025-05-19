@@ -1,11 +1,11 @@
 
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Shirt, User } from "lucide-react";
+import { Shirt, User, Baby } from "lucide-react";
 
 interface GenderToggleProps {
-  gender: 'male' | 'female';
-  setGender: (gender: 'male' | 'female') => void;
+  gender: 'male' | 'female' | 'boy' | 'girl';
+  setGender: (gender: 'male' | 'female' | 'boy' | 'girl') => void;
 }
 
 const GenderToggle = ({ gender, setGender }: GenderToggleProps) => {
@@ -14,8 +14,8 @@ const GenderToggle = ({ gender, setGender }: GenderToggleProps) => {
       <h3 className="text-lg font-medium">Vyberte postavu</h3>
       <RadioGroup
         value={gender}
-        onValueChange={(value) => setGender(value as 'male' | 'female')}
-        className="flex space-x-4"
+        onValueChange={(value) => setGender(value as 'male' | 'female' | 'boy' | 'girl')}
+        className="flex flex-wrap gap-4 justify-center"
       >
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="male" id="male" />
@@ -29,6 +29,20 @@ const GenderToggle = ({ gender, setGender }: GenderToggleProps) => {
           <Label htmlFor="female" className="flex items-center space-x-1 cursor-pointer">
             <User className="h-5 w-5" />
             <span>Žena</span>
+          </Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="boy" id="boy" />
+          <Label htmlFor="boy" className="flex items-center space-x-1 cursor-pointer">
+            <Baby className="h-5 w-5" />
+            <span>Chlapec</span>
+          </Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="girl" id="girl" />
+          <Label htmlFor="girl" className="flex items-center space-x-1 cursor-pointer">
+            <Baby className="h-5 w-5" />
+            <span>Dívka</span>
           </Label>
         </div>
       </RadioGroup>

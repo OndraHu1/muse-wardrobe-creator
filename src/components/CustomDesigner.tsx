@@ -16,6 +16,7 @@ const CustomDesigner = ({ addCustomItem }: CustomDesignerProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [color, setColor] = useState('#000000');
+  const [textColor, setTextColor] = useState('#000000'); // Samostatná barva pro text
   const [lineWidth, setLineWidth] = useState([5]);
   const [itemName, setItemName] = useState('Vlastní návrh');
   const [itemType, setItemType] = useState<'top' | 'bottom' | 'hat' | 'footwear'>('top');
@@ -73,9 +74,17 @@ const CustomDesigner = ({ addCustomItem }: CustomDesignerProps) => {
     if (drawingTool === 'brush' || drawingTool === 'eraser') {
       ctx.beginPath();
       ctx.moveTo(pos.x, pos.y);
-      ctx.strokeStyle = drawingTool === 'eraser' ? 'rgba(0,0,0,0)' : color;
+      
+      // Nastavení pro gumu - používáme destination-out pro skutečné vymazání pixelů
+      if (drawingTool === 'eraser') {
+        ctx.strokeStyle = 'rgba(0,0,0,1)'; // Barva není důležitá při použití destination-out
+        ctx.globalCompositeOperation = 'destination-out';
+      } else {
+        ctx.strokeStyle = color;
+        ctx.globalCompositeOperation = 'source-over';
+      }
+      
       ctx.lineWidth = lineWidth[0];
-      ctx.globalCompositeOperation = drawingTool === 'eraser' ? 'destination-out' : 'source-over';
     } else if (drawingTool === 'text') {
       setTextPosition(pos);
       setShowTextInput(true);
@@ -96,6 +105,14 @@ const CustomDesigner = ({ addCustomItem }: CustomDesignerProps) => {
     const pos = getEventPosition(e, canvas);
     
     if (drawingTool === 'brush' || drawingTool === 'eraser') {
+      // Ujistíme se, že nastavení zůstává konzistentní během kreslení
+      if (drawingTool === 'eraser') {
+        ctx.globalCompositeOperation = 'destination-out';
+      } else {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.strokeStyle = color;
+      }
+      
       ctx.lineTo(pos.x, pos.y);
       ctx.stroke();
     }
@@ -250,7 +267,8 @@ const CustomDesigner = ({ addCustomItem }: CustomDesignerProps) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     
-    ctx.fillStyle = color;
+    // Použití barvy textu místo hlavní barvy
+    ctx.fillStyle = textColor;
     ctx.font = `${lineWidth[0] * 3}px Arial`;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
@@ -456,20 +474,37 @@ const CustomDesigner = ({ addCustomItem }: CustomDesignerProps) => {
                 placeholder="Zadejte text..."
                 autoFocus
               />
-              <div className="flex justify-end gap-2 mt-2">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={() => setShowTextInput(false)}
-                >
-                  Zrušit
-                </Button>
-                <Button 
-                  size="sm" 
-                  onClick={addTextToCanvas}
-                >
-                  Přidat
-                </Button>
+              <div className="flex items-center gap-2 mt-2">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <label className="text-xs font-medium">Barva textu:</label>
+                    <div 
+                      className="w-6 h-6 rounded-full border" 
+                      style={{ backgroundColor: textColor }}
+                    ></div>
+                  </div>
+                  <input
+                    type="color"
+                    value={textColor}
+                    onChange={(e) => setTextColor(e.target.value)}
+                    className="w-full h-8"
+                  />
+                </div>
+                <div className="flex gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => setShowTextInput(false)}
+                  >
+                    Zrušit
+                  </Button>
+                  <Button 
+                    size="sm" 
+                    onClick={addTextToCanvas}
+                  >
+                    Přidat
+                  </Button>
+                </div>
               </div>
             </div>
           )}

@@ -1,33 +1,13 @@
 
 import { Moon, Sun } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { Button } from "./ui/button";
+import { useTheme } from "./theme-provider";
 
 const ThemeToggle = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    // Check if user has a theme preference stored or prefers dark mode
-    const isDark = localStorage.getItem("theme") === "dark" || 
-      (!localStorage.getItem("theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
-    
-    setIsDarkMode(isDark);
-    updateTheme(isDark);
-  }, []);
-
-  const updateTheme = (isDark: boolean) => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  };
+  const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    updateTheme(!isDarkMode);
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   return (
@@ -38,7 +18,7 @@ const ThemeToggle = () => {
       className="rounded-full"
       aria-label="Přepnout téma"
     >
-      {isDarkMode ? (
+      {theme === "dark" ? (
         <Sun className="h-5 w-5" />
       ) : (
         <Moon className="h-5 w-5" />

@@ -1,0 +1,6 @@
+npm install
+  460  npm run setup
+  461  npm run test 
+  462  npm run test
+  463  npm run dev
+
