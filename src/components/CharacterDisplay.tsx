@@ -20,6 +20,12 @@ const CharacterDisplay = ({ gender, className }: CharacterDisplayProps) => {
     height: number;
   }>>([]);
   
+  // Selected item for resizing
+  const [selectedItem, setSelectedItem] = useState<number | null>(null);
+  const [isResizing, setIsResizing] = useState(false);
+  const [startSize, setStartSize] = useState({ width: 0, height: 0 });
+  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+  
   // Updated character images with transparent backgrounds
   const characterSrc = gender === 'male' 
     ? "https://img.freepik.com/premium-vector/man-body-icon-male-figure-underwear-front-view_80590-14591.jpg?w=360" // Male character silhouette
@@ -122,6 +128,70 @@ const CharacterDisplay = ({ gender, className }: CharacterDisplayProps) => {
     setDroppedItems(prev => prev.filter((_, i) => i !== index));
   };
 
+  // Resize functionality
+  const handleResizeStart = (e: React.MouseEvent, index: number) => {
+    e.stopPropagation();
+    e.preventDefault();
+    
+    const item = droppedItems[index];
+    setSelectedItem(index);
+    setIsResizing(true);
+    setStartSize({ width: item.width, height: item.height });
+    setStartPos({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleResizeMove = (e: React.MouseEvent) => {
+    if (!isResizing || selectedItem === null) return;
+    
+    const deltaX = e.clientX - startPos.x;
+    const deltaY = e.clientY - startPos.y;
+    const container = containerRef.current;
+    if (!container) return;
+    
+    const containerRect = container.getBoundingClientRect();
+    const sizeFactor = 0.05; // Sensitivity factor
+    
+    const widthChange = (deltaX / containerRect.width) * 100 * sizeFactor;
+    const heightChange = (deltaY / containerRect.height) * 100 * sizeFactor;
+    
+    setDroppedItems(prev => prev.map((item, i) => {
+      if (i === selectedItem) {
+        return {
+          ...item,
+          width: Math.max(5, startSize.width + widthChange), // Minimum 5% width
+          height: Math.max(5, startSize.height + heightChange) // Minimum 5% height
+        };
+      }
+      return item;
+    }));
+  };
+
+  const handleResizeEnd = () => {
+    setIsResizing(false);
+    setSelectedItem(null);
+  };
+
+  // Add event listeners for resize
+  useEffect(() => {
+    if (isResizing) {
+      const handleMouseMove = (e: MouseEvent) => {
+        handleResizeMove(e as unknown as React.MouseEvent);
+      };
+      
+      const handleMouseUp = () => {
+        handleResizeEnd();
+      };
+      
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [isResizing]);
+
   return (
     <div 
       ref={containerRef}
@@ -145,7 +215,10 @@ const CharacterDisplay = ({ gender, className }: CharacterDisplayProps) => {
       {droppedItems.map((item, index) => (
         <div 
           key={`${item.id}-${index}`}
-          className="absolute draggable-item cursor-move hover:ring-2 ring-primary"
+          className={cn(
+            "absolute draggable-item cursor-move",
+            selectedItem === index ? "ring-2 ring-primary" : "hover:ring-2 hover:ring-primary"
+          )}
           style={{
             left: `${item.x}%`,
             top: `${item.y}%`,
@@ -156,19 +229,33 @@ const CharacterDisplay = ({ gender, className }: CharacterDisplayProps) => {
           }}
           draggable
           onDragStart={(e) => handleItemDragStart(e, index)}
+          onClick={() => setSelectedItem(index === selectedItem ? null : index)}
         >
           <img 
             src={item.src} 
             alt={item.type} 
             className="w-full h-full object-contain"
           />
+          
+          {/* Remove button */}
           <button
-            onClick={() => handleRemoveItem(index)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleRemoveItem(index);
+            }}
             className="absolute top-0 right-0 bg-destructive text-destructive-foreground rounded-full w-5 h-5 flex items-center justify-center -mt-2 -mr-2"
             aria-label="Odstranit"
           >
             ×
           </button>
+          
+          {/* Resize handle */}
+          {selectedItem === index && (
+            <div 
+              className="absolute bottom-0 right-0 w-4 h-4 bg-primary rounded-full cursor-se-resize"
+              onMouseDown={(e) => handleResizeStart(e, index)}
+            />
+          )}
         </div>
       ))}
     </div>

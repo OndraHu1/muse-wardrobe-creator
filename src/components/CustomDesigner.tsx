@@ -113,14 +113,16 @@ const CustomDesigner = ({ addCustomItem }: CustomDesignerProps) => {
     setIsDrawing(false);
     
     if (startPos && ['rectangle', 'circle', 'line'].includes(drawingTool)) {
+      const mouseEvent = window.event as MouseEvent;
       const pos = { 
-        x: canvas.width * 0.5, 
-        y: canvas.height * 0.5 
+        x: 0, 
+        y: 0 
       };
       
-      if ('nativeEvent' in event) {
-        pos.x = (event as React.MouseEvent).nativeEvent.offsetX;
-        pos.y = (event as React.MouseEvent).nativeEvent.offsetY;
+      if (mouseEvent) {
+        const rect = canvas.getBoundingClientRect();
+        pos.x = mouseEvent.clientX - rect.left;
+        pos.y = mouseEvent.clientY - rect.top;
       }
       
       ctx.fillStyle = color;
@@ -380,11 +382,12 @@ const CustomDesigner = ({ addCustomItem }: CustomDesignerProps) => {
           >
             <Paintbrush size={16} />
           </Button>
+          {/* Swapped fill and eyedropper positions */}
           <Button 
             variant={drawingTool === 'fill' ? "default" : "outline"} 
             size="sm"
             onClick={() => setDrawingTool('fill')}
-            title="Výplň"
+            title="Výplň (Kyblík)"
           >
             <Pipette size={16} />
           </Button>
