@@ -1,13 +1,49 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useState } from 'react';
+import Layout from '@/components/Layout';
+import CharacterDisplay from '@/components/CharacterDisplay';
+import ClothingMenu from '@/components/ClothingMenu';
+import CustomDesigner from '@/components/CustomDesigner';
+import GenderToggle from '@/components/GenderToggle';
+import { ClothingItemProps } from '@/components/ClothingItem';
+import { Card, CardContent } from '@/components/ui/card';
 
 const Index = () => {
+  const [gender, setGender] = useState<'male' | 'female'>('male');
+  const [customItems, setCustomItems] = useState<ClothingItemProps[]>([]);
+
+  const addCustomItem = (item: ClothingItemProps) => {
+    setCustomItems(prev => [...prev, item]);
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <Layout>
+      <div className="flex flex-col space-y-6">
+        <Card className="w-full">
+          <CardContent className="p-6 flex flex-col items-center">
+            <GenderToggle gender={gender} setGender={setGender} />
+          </CardContent>
+        </Card>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-1 space-y-6">
+            <ClothingMenu 
+              gender={gender} 
+              customItems={customItems}
+            />
+            
+            <CustomDesigner addCustomItem={addCustomItem} />
+          </div>
+          
+          <div className="lg:col-span-2">
+            <CharacterDisplay 
+              gender={gender} 
+              className="h-full min-h-[70vh]"
+            />
+          </div>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
