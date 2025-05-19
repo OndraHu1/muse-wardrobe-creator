@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ClothingItem, { ClothingItemProps } from "./ClothingItem";
@@ -23,42 +24,42 @@ const ClothingMenu = ({ customItems, gender }: ClothingMenuProps) => {
   });
 
   useEffect(() => {
-    // In a real app, you might fetch this from an API based on gender selection
+    // Real online images with transparent backgrounds
     const maleItems = {
       tops: [
-        { id: "m-shirt-1", type: "top", name: "Tričko", src: "/placeholder.svg" },
-        { id: "m-shirt-2", type: "top", name: "Košile", src: "/placeholder.svg" }
+        { id: "m-shirt-1", type: "top", name: "Tričko", src: "https://i.imgur.com/6RmLZoE.png" },
+        { id: "m-shirt-2", type: "top", name: "Košile", src: "https://i.imgur.com/z5mZ4Pg.png" }
       ],
       bottoms: [
-        { id: "m-pants-1", type: "bottom", name: "Kalhoty", src: "/placeholder.svg" },
-        { id: "m-pants-2", type: "bottom", name: "Džíny", src: "/placeholder.svg" }
+        { id: "m-pants-1", type: "bottom", name: "Kalhoty", src: "https://i.imgur.com/uJyfpce.png" },
+        { id: "m-pants-2", type: "bottom", name: "Džíny", src: "https://i.imgur.com/3njxPMo.png" }
       ],
       hats: [
-        { id: "m-hat-1", type: "hat", name: "Klobouk", src: "/placeholder.svg" },
-        { id: "m-hat-2", type: "hat", name: "Čepice", src: "/placeholder.svg" }
+        { id: "m-hat-1", type: "hat", name: "Klobouk", src: "https://i.imgur.com/8yDXi0A.png" },
+        { id: "m-hat-2", type: "hat", name: "Čepice", src: "https://i.imgur.com/AYwS92h.png" }
       ],
       footwear: [
-        { id: "m-shoes-1", type: "footwear", name: "Boty", src: "/placeholder.svg" },
-        { id: "m-shoes-2", type: "footwear", name: "Sandály", src: "/placeholder.svg" }
+        { id: "m-shoes-1", type: "footwear", name: "Boty", src: "https://i.imgur.com/mTZuTBj.png" },
+        { id: "m-shoes-2", type: "footwear", name: "Sandály", src: "https://i.imgur.com/ODiPJPH.png" }
       ]
     };
 
     const femaleItems = {
       tops: [
-        { id: "f-shirt-1", type: "top", name: "Halenka", src: "/placeholder.svg" },
-        { id: "f-shirt-2", type: "top", name: "Tričko", src: "/placeholder.svg" }
+        { id: "f-shirt-1", type: "top", name: "Halenka", src: "https://i.imgur.com/Z9YHylf.png" },
+        { id: "f-shirt-2", type: "top", name: "Tričko", src: "https://i.imgur.com/dXSgVh0.png" }
       ],
       bottoms: [
-        { id: "f-skirt-1", type: "bottom", name: "Sukně", src: "/placeholder.svg" },
-        { id: "f-pants-1", type: "bottom", name: "Kalhoty", src: "/placeholder.svg" }
+        { id: "f-skirt-1", type: "bottom", name: "Sukně", src: "https://i.imgur.com/vpHLLZ2.png" },
+        { id: "f-pants-1", type: "bottom", name: "Kalhoty", src: "https://i.imgur.com/F5eDXjH.png" }
       ],
       hats: [
-        { id: "f-hat-1", type: "hat", name: "Klobouk", src: "/placeholder.svg" },
-        { id: "f-hat-2", type: "hat", name: "Čelenka", src: "/placeholder.svg" }
+        { id: "f-hat-1", type: "hat", name: "Klobouk", src: "https://i.imgur.com/URonWK6.png" },
+        { id: "f-hat-2", type: "hat", name: "Čelenka", src: "https://i.imgur.com/vLnKGro.png" }
       ],
       footwear: [
-        { id: "f-shoes-1", type: "footwear", name: "Boty", src: "/placeholder.svg" },
-        { id: "f-shoes-2", type: "footwear", name: "Sandály", src: "/placeholder.svg" }
+        { id: "f-shoes-1", type: "footwear", name: "Boty", src: "https://i.imgur.com/XKzxZdf.png" },
+        { id: "f-shoes-2", type: "footwear", name: "Sandály", src: "https://i.imgur.com/kLSMu4V.png" }
       ]
     };
 

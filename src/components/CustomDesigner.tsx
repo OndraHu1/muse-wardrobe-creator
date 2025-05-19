@@ -28,9 +28,8 @@ const CustomDesigner = ({ addCustomItem }: CustomDesignerProps) => {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
     
-    // Set canvas background
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Initialize with transparent background
+    clearCanvas();
     
     // Setup drawing properties
     ctx.lineCap = 'round';
@@ -98,8 +97,13 @@ const CustomDesigner = ({ addCustomItem }: CustomDesignerProps) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Clear with transparent background
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw a thin border to show canvas boundaries
+    ctx.strokeStyle = '#ddd';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(0, 0, canvas.width, canvas.height);
   };
   
   const saveDesign = () => {
@@ -107,6 +111,7 @@ const CustomDesigner = ({ addCustomItem }: CustomDesignerProps) => {
     if (!canvas) return;
     
     try {
+      // Use PNG format to preserve transparency
       const dataUrl = canvas.toDataURL('image/png');
       const newItem: ClothingItemProps = {
         id: `custom-${Date.now()}`,
@@ -114,8 +119,8 @@ const CustomDesigner = ({ addCustomItem }: CustomDesignerProps) => {
         name: itemName || 'Vlastní návrh',
         src: dataUrl,
         isCustom: true,
-        width: 20,
-        height: 20
+        width: 25,
+        height: 25
       };
       
       addCustomItem(newItem);
@@ -197,10 +202,10 @@ const CustomDesigner = ({ addCustomItem }: CustomDesignerProps) => {
           />
         </div>
         
-        <div className="border rounded bg-white aspect-square w-full">
+        <div className="border rounded bg-transparent aspect-square w-full">
           <canvas
             ref={canvasRef}
-            className="w-full h-full custom-drawing-canvas"
+            className="w-full h-full custom-drawing-canvas bg-white/10"
             onMouseDown={startDrawing}
             onMouseMove={draw}
             onMouseUp={stopDrawing}

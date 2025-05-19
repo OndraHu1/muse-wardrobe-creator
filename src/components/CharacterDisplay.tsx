@@ -20,10 +20,10 @@ const CharacterDisplay = ({ gender, className }: CharacterDisplayProps) => {
     height: number;
   }>>([]);
   
-  // Base images for male and female characters
+  // Real character images with transparent backgrounds
   const characterSrc = gender === 'male' 
-    ? "/placeholder.svg" // Replace with actual male character image
-    : "/placeholder.svg"; // Replace with actual female character image
+    ? "https://i.imgur.com/UCzoGU1.png" // Male character silhouette
+    : "https://i.imgur.com/F9unm4T.png"; // Female character silhouette
 
   useEffect(() => {
     // Set up drop target
@@ -61,8 +61,8 @@ const CharacterDisplay = ({ gender, className }: CharacterDisplayProps) => {
             x,
             y,
             zIndex: prev.length + 1,
-            width: item.width || 20, // Width as percentage of container
-            height: item.height || 20 // Height as percentage of container
+            width: item.width || 25, // Slightly bigger for better visibility
+            height: item.height || 25 // Slightly bigger for better visibility
           }
         ]);
       } catch (error) {
@@ -83,6 +83,7 @@ const CharacterDisplay = ({ gender, className }: CharacterDisplayProps) => {
 
   // Handle repositioning of dropped items
   const handleItemDragStart = (e: React.DragEvent, index: number) => {
+    e.stopPropagation();
     const item = droppedItems[index];
     e.dataTransfer.setData("application/json", JSON.stringify({
       ...item,
@@ -96,8 +97,10 @@ const CharacterDisplay = ({ gender, className }: CharacterDisplayProps) => {
     const container = containerRef.current;
     if (!container) return;
     
+    const itemData = e.dataTransfer.getData("application/json");
+    if (!itemData) return;
+    
     try {
-      const itemData = e.dataTransfer.getData("application/json");
       const item = JSON.parse(itemData);
       
       if (typeof item.index === 'number') {
@@ -124,7 +127,7 @@ const CharacterDisplay = ({ gender, className }: CharacterDisplayProps) => {
       ref={containerRef}
       className={cn(
         "relative border-2 border-dashed rounded-lg overflow-hidden transition-colors",
-        "flex items-center justify-center bg-muted/50 min-h-[500px]",
+        "flex items-center justify-center bg-muted/20 min-h-[500px]",
         className
       )}
       onDragOver={(e) => e.preventDefault()}
