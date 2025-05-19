@@ -1,7 +1,7 @@
 
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Shirt, Dress } from "lucide-react";
+import { Shirt, User } from "lucide-react";
 
 interface GenderToggleProps {
   gender: 'male' | 'female';
@@ -27,7 +27,7 @@ const GenderToggle = ({ gender, setGender }: GenderToggleProps) => {
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="female" id="female" />
           <Label htmlFor="female" className="flex items-center space-x-1 cursor-pointer">
-            <Dress className="h-5 w-5" />
+            <User className="h-5 w-5" />
             <span>Žena</span>
           </Label>
         </div>
