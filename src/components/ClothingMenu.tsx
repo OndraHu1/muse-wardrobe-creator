@@ -1,8 +1,7 @@
-
 import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ClothingItem, { ClothingItemProps } from "./ClothingItem";
-import { Shirt, PantsIcon, GraduationCap, Footprints } from "lucide-react";
+import { Shirt, User, GraduationCap, Footprints } from "lucide-react";
 
 interface ClothingMenuProps {
   customItems: ClothingItemProps[];
@@ -75,7 +74,7 @@ const ClothingMenu = ({ customItems, gender }: ClothingMenuProps) => {
             <span className="text-xs">Topy</span>
           </TabsTrigger>
           <TabsTrigger value="bottoms" className="py-2 flex flex-col items-center">
-            <PantsIcon className="h-4 w-4 mb-1" />
+            <User className="h-4 w-4 mb-1" />
             <span className="text-xs">Kalhoty</span>
           </TabsTrigger>
           <TabsTrigger value="hats" className="py-2 flex flex-col items-center">
