@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
@@ -20,10 +19,10 @@ const CharacterDisplay = ({ gender, className }: CharacterDisplayProps) => {
     height: number;
   }>>([]);
   
-  // Real character images with transparent backgrounds
+  // Updated character images with transparent backgrounds
   const characterSrc = gender === 'male' 
-    ? "https://i.imgur.com/UCzoGU1.png" // Male character silhouette
-    : "https://i.imgur.com/F9unm4T.png"; // Female character silhouette
+    ? "https://www.svgrepo.com/show/318940/male-body-shape.svg" // Male character silhouette
+    : "https://www.svgrepo.com/show/318942/female-body-shape.svg"; // Female character silhouette
 
   useEffect(() => {
     // Set up drop target
@@ -138,6 +137,7 @@ const CharacterDisplay = ({ gender, className }: CharacterDisplayProps) => {
         src={characterSrc} 
         alt={gender === 'male' ? "Mužská postava" : "Ženská postava"}
         className="max-h-full max-w-full object-contain"
+        style={{ maxHeight: "90%" }}
       />
 
       {/* Dropped clothing items */}

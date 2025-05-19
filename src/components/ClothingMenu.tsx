@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ClothingItem, { ClothingItemProps } from "./ClothingItem";
@@ -24,42 +23,42 @@ const ClothingMenu = ({ customItems, gender }: ClothingMenuProps) => {
   });
 
   useEffect(() => {
-    // Real online images with transparent backgrounds
+    // Working transparent PNG URLs
     const maleItems = {
       tops: [
-        { id: "m-shirt-1", type: "top", name: "Tričko", src: "https://i.imgur.com/6RmLZoE.png" },
-        { id: "m-shirt-2", type: "top", name: "Košile", src: "https://i.imgur.com/z5mZ4Pg.png" }
+        { id: "m-shirt-1", type: "top", name: "Tričko", src: "https://www.svgrepo.com/show/378194/shirt-men-clothes.svg", width: 30, height: 30 },
+        { id: "m-shirt-2", type: "top", name: "Košile", src: "https://www.svgrepo.com/show/378191/shirt-business-men.svg", width: 30, height: 30 }
       ],
       bottoms: [
-        { id: "m-pants-1", type: "bottom", name: "Kalhoty", src: "https://i.imgur.com/uJyfpce.png" },
-        { id: "m-pants-2", type: "bottom", name: "Džíny", src: "https://i.imgur.com/3njxPMo.png" }
+        { id: "m-pants-1", type: "bottom", name: "Kalhoty", src: "https://www.svgrepo.com/show/378189/pants-men-clothes.svg", width: 30, height: 40 },
+        { id: "m-pants-2", type: "bottom", name: "Džíny", src: "https://www.svgrepo.com/show/378188/pants-jeans-clothing.svg", width: 30, height: 40 }
       ],
       hats: [
-        { id: "m-hat-1", type: "hat", name: "Klobouk", src: "https://i.imgur.com/8yDXi0A.png" },
-        { id: "m-hat-2", type: "hat", name: "Čepice", src: "https://i.imgur.com/AYwS92h.png" }
+        { id: "m-hat-1", type: "hat", name: "Klobouk", src: "https://www.svgrepo.com/show/378172/hat-clothing-fashion.svg", width: 25, height: 20 },
+        { id: "m-hat-2", type: "hat", name: "Čepice", src: "https://www.svgrepo.com/show/378171/cap-clothing-fashion.svg", width: 25, height: 20 }
       ],
       footwear: [
-        { id: "m-shoes-1", type: "footwear", name: "Boty", src: "https://i.imgur.com/mTZuTBj.png" },
-        { id: "m-shoes-2", type: "footwear", name: "Sandály", src: "https://i.imgur.com/ODiPJPH.png" }
+        { id: "m-shoes-1", type: "footwear", name: "Boty", src: "https://www.svgrepo.com/show/378193/shoes-sneakers-clothing.svg", width: 25, height: 15 },
+        { id: "m-shoes-2", type: "footwear", name: "Sandály", src: "https://www.svgrepo.com/show/417201/shoes-sandals.svg", width: 25, height: 15 }
       ]
     };
 
     const femaleItems = {
       tops: [
-        { id: "f-shirt-1", type: "top", name: "Halenka", src: "https://i.imgur.com/Z9YHylf.png" },
-        { id: "f-shirt-2", type: "top", name: "Tričko", src: "https://i.imgur.com/dXSgVh0.png" }
+        { id: "f-shirt-1", type: "top", name: "Halenka", src: "https://www.svgrepo.com/show/378178/dress-clothing-fashion.svg", width: 30, height: 40 },
+        { id: "f-shirt-2", type: "top", name: "Tričko", src: "https://www.svgrepo.com/show/378155/blouse-women-clothing.svg", width: 30, height: 30 }
       ],
       bottoms: [
-        { id: "f-skirt-1", type: "bottom", name: "Sukně", src: "https://i.imgur.com/vpHLLZ2.png" },
-        { id: "f-pants-1", type: "bottom", name: "Kalhoty", src: "https://i.imgur.com/F5eDXjH.png" }
+        { id: "f-skirt-1", type: "bottom", name: "Sukně", src: "https://www.svgrepo.com/show/378197/skirt-clothing-women.svg", width: 30, height: 30 },
+        { id: "f-pants-1", type: "bottom", name: "Kalhoty", src: "https://www.svgrepo.com/show/378190/pants-women-clothing.svg", width: 30, height: 40 }
       ],
       hats: [
-        { id: "f-hat-1", type: "hat", name: "Klobouk", src: "https://i.imgur.com/URonWK6.png" },
-        { id: "f-hat-2", type: "hat", name: "Čelenka", src: "https://i.imgur.com/vLnKGro.png" }
+        { id: "f-hat-1", type: "hat", name: "Klobouk", src: "https://www.svgrepo.com/show/378174/hat-women-summer.svg", width: 25, height: 20 },
+        { id: "f-hat-2", type: "hat", name: "Čelenka", src: "https://www.svgrepo.com/show/378173/headband-fashion-accessory.svg", width: 25, height: 10 }
       ],
       footwear: [
-        { id: "f-shoes-1", type: "footwear", name: "Boty", src: "https://i.imgur.com/XKzxZdf.png" },
-        { id: "f-shoes-2", type: "footwear", name: "Sandály", src: "https://i.imgur.com/kLSMu4V.png" }
+        { id: "f-shoes-1", type: "footwear", name: "Boty", src: "https://www.svgrepo.com/show/378192/shoes-high-heel.svg", width: 25, height: 15 },
+        { id: "f-shoes-2", type: "footwear", name: "Sandály", src: "https://www.svgrepo.com/show/378165/flip-flops-summer-beach.svg", width: 25, height: 15 }
       ]
     };
 
