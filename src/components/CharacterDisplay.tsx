@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
@@ -21,7 +22,7 @@ const CharacterDisplay = ({ gender, className }: CharacterDisplayProps) => {
   
   // Updated character images with transparent backgrounds
   const characterSrc = gender === 'male' 
-    ? "https://www.svgrepo.com/show/318940/male-body-shape.svg" // Male character silhouette
+    ? "https://img.freepik.com/premium-vector/man-body-icon-male-figure-underwear-front-view_80590-14591.jpg?w=360" // Male character silhouette
     : "https://www.svgrepo.com/show/318942/female-body-shape.svg"; // Female character silhouette
 
   useEffect(() => {
